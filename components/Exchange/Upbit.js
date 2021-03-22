@@ -1,31 +1,20 @@
 const Upbit = ({upbitList}) => {
 
-    return (
-        <div>
-            <table className="border-collapse border border-green-800 ">
-                <thead>
-                    <tr>
-                        <th className="border border-green-600">
-                            Upbit Coins
-                    </th>
-                        <th className="border border-green-600">
-                            Price
-                    </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        upbitList.data.map((sym) => (
-                            <tr key={sym.market}>
-                                <th>{sym.market}</th>
-                                <th>{sym.trade_price || 0}</th>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-        </div>
-    )
+    if (typeof upbitList.data !== "undefined") {
+        return (
+            <div>
+                {
+                    upbitList.data.map((sym) => (
+                        <div key={sym.market}>
+                            {sym.trade_price || 0}
+                        </div>
+                    ))
+                }
+            </div>
+        )
+    } else {
+        return <div>Upbit loading...</div>;
+    }
 }
 
 export default Upbit

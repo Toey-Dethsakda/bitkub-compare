@@ -1,31 +1,21 @@
 const Binance = ({biList}) => {
+    if (typeof biList.biSymbol !== 'undefined') {
+        return (
+            <div>
+                {
+                    biList.biSymbol.map((sym) => (
+                        <div key={sym.symbol}>
+                            {sym.price || 0}
+                        </div>
+                    ))
+                }
 
-    return (
-        <div>
-            <table className="border-collapse border border-green-800 ">
-                <thead>
-                    <tr>
-                        <th className="border border-green-600">
-                            Binance Coins
-                    </th>
-                        <th className="border border-green-600">
-                            Price
-                    </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        biList.biSymbol.map((sym) => (
-                            <tr key={sym.symbol}>
-                                <th>{sym.symbol}</th>
-                                <th>{sym.price || 0}</th>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-        </div>
-    )
+            </div>
+        )
+    } else {
+       return <div>Binance loading...</div>;
+    }
+    
 }
 
 export default Binance
