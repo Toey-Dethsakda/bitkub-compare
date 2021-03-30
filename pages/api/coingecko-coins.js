@@ -24,6 +24,10 @@ export default async (req, res) => {
   });
 
   await initMiddleware(req, res, cors);
-  const coingecko = await response.json();
+  const coingeckoRes = await response.json();
+  const coingecko = {
+    geckoSymbol: coingeckoRes
+  }
+  coingecko.geckoSymbol.sort((a, b) => a.market_cap_rank - b.market_cap_rank)
   return res.status(200).json(coingecko);
 };

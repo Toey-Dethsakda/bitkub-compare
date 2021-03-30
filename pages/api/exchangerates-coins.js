@@ -16,5 +16,6 @@ export default async (req, res) => {
 
   await initMiddleware(req, res, cors);
   const exchange = await response.json();
-  return res.status(200).json(exchange);
+  let exchangeTHB = (exchange?  exchange.rates.THB : 'undefined')
+  return res.status(200).json(exchangeTHB);
 };

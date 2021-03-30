@@ -1,9 +1,32 @@
-const Bitkub = ({bitList}) => {
-    if (typeof bitList.symbol !== "undefined") {
+export const IntlFormatNumber = (bitcoin) => {
+    return new Intl.NumberFormat("th-TH").format(bitcoin);
+};
+
+const Bitkub = ({ bitkub }) => {
+    const bitkubCoin = () => {
+        const bitkubtArr = []
+        if (typeof bitkub !== "undefined") {
+            bitkub.symbols.forEach(bitkubRes => {
+                let bitArr = {
+                    symbol: bitkubRes.symbol,
+                    last: IntlFormatNumber(bitkubRes.last)
+                }
+                bitkubtArr.push(bitArr)
+            });
+            return {
+                symbols: bitkubtArr
+            }
+        }
+        return {}
+    }
+
+    const bitkubList = bitkubCoin()
+
+    if (typeof bitkubList.symbols !== "undefined") {
         return (
             <div>
                 {
-                    bitList.symbol.map((sym) => (
+                    bitkubList.symbols.map((sym) => (
                         <div key={sym.symbol}>
                             {sym.last || 0}
                         </div>
@@ -13,7 +36,7 @@ const Bitkub = ({bitList}) => {
         )
     } else {
         return <div>Bitkub loading...</div>;
-    } 
+    }
 }
 
 export default Bitkub

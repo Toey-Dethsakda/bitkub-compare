@@ -6,7 +6,7 @@ const cors = Cors({
   methods: ["GET"],
 });
 
-const url = "https://th-api.upbit.com/v1/ticker?markets=THB-BTC,THB-ETH,THB-XRP,THB-LTC,THB-USDT";
+const url = "https://api.bitkub.com/api/market/symbols";
 
 export default async (req, res) => {
   const response = await fetch(url, {
@@ -15,9 +15,12 @@ export default async (req, res) => {
   });
 
   await initMiddleware(req, res, cors);
-  const upbitRes = await response.json();
-  const upbit = {
-    data: upbitRes
+  const bitkubSymbolsRes = await response.json();
+  const bitkubSymbols = {
+    dataResult: bitkubSymbolsRes.result.map(item => ({
+      symbol: item.symbol.replace('THB_', ''),
+      info: item.info.replace('Thai Baht to ', '')
+    }))
   }
-  return res.status(200).json(upbit);
+  return res.status(200).json(bitkubSymbols);
 };

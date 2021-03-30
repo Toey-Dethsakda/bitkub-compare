@@ -15,6 +15,9 @@ export default async (req, res) => {
   });
 
   await initMiddleware(req, res, cors);
-  const satang = await response.json();
+  const satangRes = await response.json();
+  const satang = {
+    saSymbol: satangRes
+  }
   return res.status(200).json(satang);
 };

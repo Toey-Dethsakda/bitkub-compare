@@ -15,6 +15,15 @@ export default async (req, res) => {
   });
 
   await initMiddleware(req, res, cors);
-  const bitkub = await response.json();
+  const bitRes = await response.json();
+  const bitkub = {
+    symbols: Object.keys(bitRes).map(v => ({
+      ...bitRes[v],
+      symbol: v.replace('THB_', '')
+    }))
+  }
+
+  bitkub.symbols.sort((a, b) => a.id - b.id)
   return res.status(200).json(bitkub);
-};
+
+}
