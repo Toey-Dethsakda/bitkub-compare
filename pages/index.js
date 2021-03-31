@@ -1,13 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import useSWR from "swr";
-import Coingecko from "../components/Exchange/Coingecko";
-import Bitkub from "../components/Exchange/Bitkub";
-import Binance from "../components/Exchange/Binance"
-import Satang from '../components/Exchange/Satang';
-import Huobi from '../components/Exchange/Huobi';
-import Upbit from '../components/Exchange/Upbit';
-import CoinsList from '../components/Exchange/CoinList';
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -172,7 +165,7 @@ export default function App() {
             symbol: huobiResult.symbol.replace('thb', '').toUpperCase(),
             last: Number.parseFloat(huobiResult.ask).toFixed(2)
           }
-          let diff = (huoArr.last == 0 ? '': Number.parseFloat(((huoArr.last - bitkubList.last) / huoArr.last * 100)).toFixed(2))
+          let diff = (huoArr.last == 0 ? '' : Number.parseFloat(((huoArr.last - bitkubList.last) / huoArr.last * 100)).toFixed(2))
           return {
             symbol: huoArr.symbol,
             last: IntlFormatNumber(huoArr.last),
@@ -237,238 +230,545 @@ export default function App() {
   const huobiList = huobiCoin()
   const upbitList = upbitCoin()
 
+  // console.log('* bitkubList = ', bitkubList);
+  // console.log('biList = ', biList);
+  // console.log('geckoList = ', geckoList);
+  // console.log('saList = ', saList);
+  // console.log('huobiList = ', huobiList);
+  // console.log('upbitList = ', upbitList);
+
   // Render --------------------------------------------------
 
   return (
-    <div>
-      <Head>
-        <title>Bitkub Compare</title>
-        <link rel="icon" href="/bitkub-logo.png" />
-      </Head>
+    <div class="relative bg-white">
+      <nav class="bg-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+          <div class="flex justify-between items-center border-gray-100 py-6 md:justify-start md:space-x-10">
+            <div class="flex justify-start lg:w-0 lg:flex-1">
+              <a href="#">
+                <span class="text-white">Bitkub compare</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
 
-      <table>
-        <thead>
-          <tr>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              CURRENCY
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <img src="/bitkub-icon.png" alt="bitkub" className="max-w-md mx-auto h-10" />
-              BITKUB
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <img src="/binance-icon.png" alt="binance" className="max-w-md mx-auto h-10" />
-              BINANCE
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <img src="/coingecko-icon.png" alt="coingecko" className="max-w-md mx-auto h-10" />
-              GECKOCOIN
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <img src="/satang-icon.png" alt="satang" className="max-w-md mx-auto h-10" />
-              Satang | Pro
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <img src="/huobi.png" alt="huobi" className="max-w-md mx-auto h-10" />
-              Huobi
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <img src="/upbit.png" alt="upbit" className="max-w-md mx-auto h-10" />
-            </th>
-          </tr>
+      
 
-        </thead>
-
-        <tbody>
-
-        <tr>
-            {/* <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <CoinsList coinsList={bitkub} />
-            </td> */}
-
-            <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <div>
-                {
-                  bitkubList.symbols.map((sym) => (
-                    <div className={styles.currency} key={sym.symbol}>
-                      <img src={`https://www.bitkub.com/static/images/icons/${sym.symbol}.png`}/>
+      <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      CURRENCY
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      SYMBOLS
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <img src="/bitkub-icon.png" alt="bitkub" className="max-w-md mx-auto h-10" />
+                    BITKUB
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <img src="/binance-icon.png" alt="binance" className="max-w-md mx-auto h-10" />
+                    BINANCE
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Different
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <img src="/coingecko-icon.png" alt="coingecko" className="max-w-md mx-auto h-10" />
+                    GECKOCOIN
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Different
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <img src="/satang-icon.png" alt="satang" className="max-w-md mx-auto h-10" />
+                    Satang | Pro
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Different
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <img src="/huobi.png" alt="huobi" className="max-w-md mx-auto h-10" />
+                    Huobi
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Different
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <img src="/upbit.png" alt="upbit" className="max-w-md mx-auto h-10" />
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Different
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        bitkubList.symbols.map((sym) => (
+                          <div className={styles.currency} key={sym.symbol}>
+                            <img src={`https://www.bitkub.com/static/images/icons/${sym.symbol}.png`} />
+                          </div>
+                        ))
+                      }
                     </div>
-                  ))
-                }
-              </div>
-            </td>
+                  </td>
 
-            {/* <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <Bitkub bitkub={bitkub} />
-            </td> */}
-
-            <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <div>
-                {
-                  bitkubList.symbols.map((sym) => (
-                    <div className={styles.coinlistHead} key={sym.symbol}>
-                      <div className="text-center">{sym.symbol || 0}</div>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        bitkubList.symbols.map((sym) => (
+                          <div className={styles.coinlistHead} key={sym.symbol}>
+                            <div>{sym.symbol || 0}</div>
+                          </div>
+                        ))
+                      }
                     </div>
-                  ))
-                }
-              </div>
-            </td>
+                  </td>
 
-            {/* <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <Bitkub bitkub={bitkub} />
-            </td> */}
-
-            <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <div>
-                {
-                  bitkubList.symbols.map((sym) => (
-                    <div className={styles.coinlistHead} key={sym.symbol}>
-                      <div className="text-center">{sym.last || 0}</div>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        bitkubList.symbols.map((sym) => (
+                          <div className={styles.coinlistHead} key={sym.symbol}>
+                            <div>{sym.last || 0}</div>
+                          </div>
+                        ))
+                      }
                     </div>
-                  ))
-                }
-              </div>
-            </td>
+                  </td>
 
-            {/* <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <Binance exchangeTHB={exchangeTHB} binance={binance} bitkub={bitkub} />
-            </td> */}
+                  {/* Start Binance */}
 
-            {/* Start Binance */}
-            <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <div>
-                {
-                  biList.biSymbol.map((sym) => (
-                    <div className={styles.coinlist} key={`binance-${sym.symbol}`}>
-                      <div className="text-center">{sym.price || 0}</div>
-                      <div
-                        className="text-center"
-                        style={{
-                          fontSize: 12,
-                          color: sym.diff > 0 ? "#019716" : "#e60000",
-                        }}
-                      >
-                        {sym.diff || 0}%</div>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        biList.biSymbol.map((sym) => (
+                          <div className={styles.coinlist} key={`binance-${sym.symbol}`}>
+                            {
+                              (sym.price != 0 ?
+                                <div
+                                 
+                                >
+                                  {sym.price}
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
                     </div>
-                  ))
-                }
-              </div>
-            </td>
+                  </td>
 
-            {/* Start Coingecko */}
-
-            {/* <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <Coingecko coingecko={coingecko} bitkub={bitkub} />
-            </td> */}
-
-            <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <div>
-                {
-                  geckoList.geckoSymbol.map((sym) => (
-                    <div className={styles.coinlist} key={sym.symbol}>
-                      <div className="text-center">{sym.last || 0}</div>
-                      <div
-                        className="text-center"
-                        style={{
-                          fontSize: 12,
-                          color: sym.diff > 0 ? "#019716" : "#e60000",
-                        }}
-                      >
-                        {sym.diff || 0}%
-                      </div>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        biList.biSymbol.map((sym) => (
+                          <div className={styles.coinlist} key={`binance-${sym.symbol}`}>
+                            {
+                              (sym.price != 0 ?
+                                <div
+                                 
+                                >
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                        {/* {
+                                (sym.diff > 0 ?
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                                </svg>
+                                :
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                                )
+                            } */}
+                                        <div style={{ position: 'relative' }}>{sym.diff}%</div>
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
                     </div>
-                  ))
-                }
-              </div>
-            </td>
+                  </td>
 
-            {/* Start Satang  */}
-            {/* <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <Satang satang={satang} bitkub={bitkub} />
-            </td> */}
 
-            <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <div>
-                {
-                  saList.saSymbol.map((sym) => (
-                    <div className={styles.coinlist} key={sym.symbol}>
-                      <div className="text-center">{sym.last || 0}</div>
-                      <div
-                        className="text-center"
-                        style={{
-                          fontSize: 12,
-                          color: sym.diff > 0 ? "#019716" : "#e60000",
-                        }}
-                      >
-                        {sym.diff || 0}%
-                      </div>
+                  {/* Start Coingecko */}
+
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        geckoList.geckoSymbol.map((sym) => (
+                          <div className={styles.coinlist} key={sym.symbol}>
+                            {
+                              (sym.last != 0 ?
+                                <div
+                                 
+                                >
+                                  {sym.last}
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
                     </div>
-                  ))
-                }
-              </div>
-            </td>
+                  </td>
 
-            {/*  Start Huobi */}
-            {/* <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <Huobi huobi={huobi} bitkub={bitkub} />
-            </td> */}
-
-            <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <div>
-                {
-                  huobiList.data.map((sym) => (
-                    <div className={styles.coinlist} key={sym.symbol}>
-                      <div className="text-center">{sym.last || 0}</div>
-                      <div
-                        className="text-center"
-                        style={{
-                          fontSize: 12,
-                          color: sym.diff > 0 ? "#019716" : "#e60000",
-                        }}
-                      >
-                        {sym.diff || 0}%
-                      </div>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        geckoList.geckoSymbol.map((sym) => (
+                          <div className={styles.coinlist} key={sym.symbol}>
+                            {
+                              (sym.last != 0 ?
+                                <div
+                                 
+                                >
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                        {/* {
+                                (sym.diff > 0 ?
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                                </svg>
+                                :
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                                )
+                            } */}
+                                        <div style={{ position: 'relative' }}>{sym.diff}%</div>
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
                     </div>
-                  ))
-                }
-              </div>
-            </td>
+                  </td>
 
-            {/* Start Upbit */}
-            {/* <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <Upbit upbit={upbit} bitkub={bitkub} />
-            </td> */}
+                  {/* Start Satang  */}
 
-            <td scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <div>
-                {
-                  upbitList.data.map((sym) => (
-                    <div className={styles.coinlist} key={sym.market}>
-                      <div className="text-center">{sym.last || 0}</div>
-                      <div
-                        className="text-center"
-                        style={{
-                          fontSize: 12,
-                          color: sym.diff > 0 ? "#019716" : "#e60000",
-                        }}
-                      >
-                        {sym.diff || 0}%
-                      </div>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        saList.saSymbol.map((sym) => (
+                          <div className={styles.coinlist} key={sym.symbol}>
+                            {
+                              (sym.last != 0 ?
+                                <div
+                                 
+                                >
+                                  {sym.last}
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
                     </div>
-                  ))
-                }
-              </div>
-            </td>
-          </tr>
-        </tbody>
+                  </td>
 
-      </table>
-      <footer className={styles.footer}>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        saList.saSymbol.map((sym) => (
+                          <div className={styles.coinlist} key={sym.symbol}>
+                            {
+                              (sym.last != 0 ?
+                                <div
+                                 
+                                >
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                        {/* {
+                                (sym.diff > 0 ?
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                                </svg>
+                                :
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                                )
+                            } */}
+                                        <div style={{ position: 'relative' }}>{sym.diff}%</div>
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </td>
 
+                  {/*  Start Huobi */}
+
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        huobiList.data.map((sym) => (
+                          <div className={styles.coinlist} key={sym.symbol}>
+                            {
+                              (sym.last != 0 ?
+                                <div
+                                 
+                                >
+                                  {sym.last}
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </td>
+
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        huobiList.data.map((sym) => (
+                          <div className={styles.coinlist} key={sym.symbol}>
+                            {
+                              (sym.last != 0 ?
+                                <div
+                                 
+                                >
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                        {/* {
+                                (sym.diff > 0 ?
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                                </svg>
+                                :
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                                )
+                            } */}
+                                        <div style={{ position: 'relative' }}>{sym.diff}%</div>
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </td>
+
+                  {/* Start Upbit */}
+
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        upbitList.data.map((sym) => (
+                          <div className={styles.coinlist} key={sym.market}>
+                            {
+                              (sym.last != 0 ?
+                                <div
+                                 
+                                >
+                                  {sym.last}
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </td>
+
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      {
+                        upbitList.data.map((sym) => (
+                          <div className={styles.coinlist} key={sym.market}>
+                            {
+                              (sym.last != 0 ?
+                                <div
+                                 
+                                >
+                                  {
+                                    (sym.diff != 0 ?
+                                      <div
+                                       
+                                        style={{
+                                          
+                                          color: sym.diff > 0 ? "#019716" : "#e60000",
+                                        }}
+                                      >
+                                        {/* {
+                                (sym.diff > 0 ?
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                                </svg>
+                                :
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style={{ width: 15 }}>
+                                    <path fillRule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                                )
+                            } */}
+                                        <div style={{ position: 'relative' }}>{sym.diff}%</div>
+                                      </div>
+                                      :
+                                      <br />
+                                    )
+                                  }
+                                </div> :
+                                <br />)
+                            }
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </td>
+
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="py-5 bg-gray-700 text-center text-white">
+        Bitkub 😎
       </footer>
+
     </div>
+
+
   )
 }
+
+
+
