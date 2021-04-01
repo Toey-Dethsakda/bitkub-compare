@@ -6,8 +6,8 @@ const cors = Cors({
   methods: ["GET"],
 });
 
-const url = "https://api.exchangeratesapi.io/latest?base=USD";
-
+const access_key = "555be36b24d2334ab05857a94e41b269"
+const url = `http://api.exchangeratesapi.io/latest?access_key=${access_key}`;
 export default async (req, res) => {
   const response = await fetch(url, {
     body: null,
