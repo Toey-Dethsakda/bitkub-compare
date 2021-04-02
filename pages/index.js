@@ -11,7 +11,7 @@ export const IntlFormatNumber = (bitcoin) => {
 export default function App() {
 
   const { data: exchangeTHB } = useSWR("/api/exchangerates-coins", fetcher, {
-    refreshInterval: 5000,
+    refreshInterval: 20000,
   })
 
   // const { data: bitkubSymbols } = useSWR("/api/market-symbols", fetcher, {
@@ -274,13 +274,14 @@ export default function App() {
   // Render --------------------------------------------------
 
   return (
-    <div class="relative bg-white">
-      <nav class="bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-          <div class="flex justify-between items-center border-gray-100 py-6 md:justify-start md:space-x-10">
-            <div class="flex justify-start lg:w-0 lg:flex-1">
+    <div className="relative bg-white">
+      <nav className="bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex justify-between items-center border-gray-100 py-6 md:justify-start md:space-x-10">
+            <div className="flex justify-start lg:w-0 lg:flex-1">
               <a href="#">
-                <span class="text-white">Bitkub compare</span>
+              {/* <img src="/logo-Bikub.png" alt="bitkub" className="max-w-md mx-auto h-10" /> */}
+                <span className="text-white">Bitkub compare</span>
               </a>
             </div>
           </div>
@@ -289,60 +290,60 @@ export default function App() {
 
 
 
-      <div class="flex flex-col">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+      <div className="flex flex-col">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
                   <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       CURRENCY
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       SYMBOLS
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <img src="/bitkub-icon.png" alt="bitkub" className="max-w-md mx-auto h-10" />
                     BITKUB
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <img src="/binance-icon.png" alt="binance" className="max-w-md mx-auto h-10" />
                     BINANCE
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Different
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <img src="/coingecko-icon.png" alt="coingecko" className="max-w-md mx-auto h-10" />
                     GECKOCOIN
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Different
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <img src="/satang-icon.png" alt="satang" className="max-w-md mx-auto h-10" />
                     Satang | Pro
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Different
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <img src="/huobi.png" alt="huobi" className="max-w-md mx-auto h-10" />
                     Huobi
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Different
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <img src="/upbit.png" alt="upbit" className="max-w-md mx-auto h-10" />
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Different
                     </th>
                   </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white divide-y divide-gray-200">
                   <tr>
 
                     {/* <td>
@@ -367,7 +368,7 @@ export default function App() {
                       }
                     </td> */}
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           bitkubList.symbols.map((sym) => (
@@ -379,7 +380,7 @@ export default function App() {
                       </div>
                     </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           bitkubList.symbols.map((sym) => (
@@ -391,7 +392,7 @@ export default function App() {
                       </div>
                     </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           bitkubList.symbols.map((sym) => (
@@ -405,7 +406,7 @@ export default function App() {
 
                     {/* Start Binance */}
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           biList.biSymbol.map((sym) => (
@@ -439,7 +440,7 @@ export default function App() {
                       </div>
                     </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           biList.biSymbol.map((sym) => (
@@ -484,7 +485,7 @@ export default function App() {
 
                     {/* Start Coingecko */}
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           geckoList.geckoSymbol.map((sym) => (
@@ -518,7 +519,7 @@ export default function App() {
                       </div>
                     </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           geckoList.geckoSymbol.map((sym) => (
@@ -562,7 +563,7 @@ export default function App() {
 
                     {/* Start Satang  */}
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           saList.saSymbol.map((sym) => (
@@ -596,7 +597,7 @@ export default function App() {
                       </div>
                     </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           saList.saSymbol.map((sym) => (
@@ -640,7 +641,7 @@ export default function App() {
 
                     {/*  Start Huobi */}
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           huobiList.data.map((sym) => (
@@ -674,7 +675,7 @@ export default function App() {
                       </div>
                     </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           huobiList.data.map((sym) => (
@@ -718,7 +719,7 @@ export default function App() {
 
                     {/* Start Upbit */}
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           upbitList.data.map((sym) => (
@@ -752,7 +753,7 @@ export default function App() {
                       </div>
                     </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           upbitList.data.map((sym) => (
@@ -802,7 +803,7 @@ export default function App() {
         </div>
       </div>
 
-      <footer class="py-5 bg-gray-700 text-center text-white">
+      <footer className="py-5 bg-gray-700 text-center text-white">
         Bitkub 😎
       </footer>
 
