@@ -190,38 +190,38 @@ export default function App() {
     }
   }
 
-  const huobiCoin = () => {
-    if (bitkub && bitkub.symbols && huobi && huobi.data) {
-      const result = bitkub.symbols.map((bitkubList) => {
-        const huobiResult = huobi.data.find((huobiRes) => huobiRes.symbol.replace('thb', '').toUpperCase() == bitkubList.symbol)
-        if (huobiResult) {
-          let huoArr = {
-            symbol: huobiResult.symbol.replace('thb', '').toUpperCase(),
-            last: Number.parseFloat(huobiResult.ask).toFixed(2)
-          }
-          let diff = (huoArr.last == 0 ? '' : Number.parseFloat(((huoArr.last - bitkubList.last) / huoArr.last * 100)).toFixed(2))
-          return {
-            symbol: huoArr.symbol,
-            last: IntlFormatNumber(huoArr.last),
-            diff: diff
-          }
-        }
+  // const huobiCoin = () => {
+  //   if (bitkub && bitkub.symbols && huobi && huobi.data) {
+  //     const result = bitkub.symbols.map((bitkubList) => {
+  //       const huobiResult = huobi.data.find((huobiRes) => huobiRes.symbol.replace('thb', '').toUpperCase() == bitkubList.symbol)
+  //       if (huobiResult) {
+  //         let huoArr = {
+  //           symbol: huobiResult.symbol.replace('thb', '').toUpperCase(),
+  //           last: Number.parseFloat(huobiResult.ask).toFixed(2)
+  //         }
+  //         let diff = (huoArr.last == 0 ? '' : Number.parseFloat(((huoArr.last - bitkubList.last) / huoArr.last * 100)).toFixed(2))
+  //         return {
+  //           symbol: huoArr.symbol,
+  //           last: IntlFormatNumber(huoArr.last),
+  //           diff: diff
+  //         }
+  //       }
 
-        return {
-          symbol: bitkubList.symbol,
-          last: '',
-          diff: ''
-        }
-      })
+  //       return {
+  //         symbol: bitkubList.symbol,
+  //         last: '',
+  //         diff: ''
+  //       }
+  //     })
 
-      return {
-        data: result
-      }
-    }
-    return {
-      data: []
-    }
-  }
+  //     return {
+  //       data: result
+  //     }
+  //   }
+  //   return {
+  //     data: []
+  //   }
+  // }
 
   const upbitCoin = () => {
     if (bitkub && bitkub.symbols && upbit && upbit.data) {
@@ -261,7 +261,7 @@ export default function App() {
   const biList = binanceCoin()
   const geckoList = geckoCoin()
   const saList = satangCoin()
-  const huobiList = huobiCoin()
+  // const huobiList = huobiCoin()
   const upbitList = upbitCoin()
 
   // console.log('* bitkubList = ', bitkubList);
@@ -641,7 +641,7 @@ export default function App() {
 
                     {/*  Start Huobi */}
 
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    {/* <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           huobiList.data.map((sym) => (
@@ -673,7 +673,7 @@ export default function App() {
                           ))
                         }
                       </div>
-                    </td>
+                    </td> */}
 
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
