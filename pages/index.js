@@ -675,7 +675,7 @@ export default function App() {
                       </div>
                     </td> */}
 
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    {/* <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         {
                           huobiList.data.map((sym) => (
@@ -715,7 +715,7 @@ export default function App() {
                           ))
                         }
                       </div>
-                    </td>
+                    </td> */}
 
                     {/* Start Upbit */}
 
